@@ -1,0 +1,11 @@
+{
+  "name": "cc-faucet",
+  "version": "0.1.0",
+  "repository": {
+      "type": "git",
+      "url": "git://github.com/chromaway/cc-faucet.git"
+  },
+  "dependencies": {
+    "cc-wallet-engine": "git://github.com/chromaway/cc-wallet-engine.git"
+  }
+}
