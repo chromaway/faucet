@@ -1,5 +1,5 @@
 var moment = require('moment')
-var AssetTargetModel = require('./AssetTargetModel')
+var HistoryTargetModel = require('./HistoryTargetModel')
 
 
 /**
@@ -42,11 +42,11 @@ HistoryEntryModel.prototype.getValues = function() {
 }
 
 /**
- * @return {AssetTargetModel[]}
+ * @return {HistoryTargetModel[]}
  */
 HistoryEntryModel.prototype.getTargets = function() {
   return this.historyEntry.getTargets().map(function(at) {
-    return new AssetTargetModel(at)
+    return new HistoryTargetModel(at)
   })
 }
 

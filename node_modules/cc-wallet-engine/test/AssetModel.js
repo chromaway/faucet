@@ -1,26 +1,25 @@
 var expect = require('chai').expect
 
-var ccWallet = require('cc-wallet-core').Wallet
-
+var WalletEngine = require('../src/WalletEngine')
 var AssetModel = require('../src/AssetModel')
 var HistoryEntryModel = require('../src/HistoryEntryModel')
 
 
 describe('AssetModel', function() {
-  var wallet, assetModel
+  var walletEngine, assetModel
 
   beforeEach(function(done) {
-    wallet = new ccWallet({ testnet: true })
-    wallet.initialize('12355564466111166655222222222222')
-    assetModel = new AssetModel(wallet, wallet.getAssetDefinitionByMoniker('bitcoin'))
-    wallet.fullScanAllAddresses(function(error) {
+    walletEngine = new WalletEngine({ testnet: true })
+    walletEngine.ccWallet.initialize('12355564466111166655222222222222')
+    assetModel = new AssetModel(walletEngine, walletEngine.ccWallet, walletEngine.ccWallet.getAssetDefinitionByMoniker('bitcoin'))
+    walletEngine.ccWallet.fullScanAllAddresses(function(error) {
       expect(error).to.be.null
       done()
     })
   })
 
   afterEach(function() {
-    wallet.clearStorage()
+    walletEngine.ccWallet.clearStorage()
   })
 
   it('bitcoin AssetModel', function(done) {

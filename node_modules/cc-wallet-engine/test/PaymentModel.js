@@ -7,7 +7,7 @@ var AssetModel = require('../src/AssetModel')
 var PaymentModel = require('../src/PaymentModel')
 
 
-describe('PaymentModel', function() {
+describe.skip('PaymentModel', function() {
   var mnemonic = 'aerobic naive paper isolate volume coffee minimum crucial purse inmate winner cricket'
   var password = ''
   var seed = BIP39.mnemonicToSeedHex(mnemonic, password)
