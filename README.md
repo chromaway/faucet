@@ -4,7 +4,7 @@ faucet
 Simple colored-coins faucet for testnet
 
 
-Get started
+Install
 ===========
 
 npm install

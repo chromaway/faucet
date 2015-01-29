@@ -57,11 +57,12 @@ function renderAsset(am) {
 };
 
 function render () {
-    $('#assets').empty();
+    $('#assets').empty().hide();
     var assetModels = wallet.getAssetModels();
     $.each(assetModels, function (idx, am) {
         renderAsset(am);
     });
+    $('#assets').fadeIn();
 };
 
 function walletWasUpdated() {
@@ -78,22 +79,10 @@ function createWallet() {
     }
 
     wallet.setCallback(walletWasUpdated);
-    wallet.ccWallet.fullScanAllAddresses(function (err) {
-        wallet.update();
-    });
-};
-
-function refresh() {
-    if (wallet.isInitialized()) {
-        wallet.ccWallet.scanAllAddresses(function (err) {
-            wallet.update();
-        });
-    }
 };
 
 var init = function() {
     createWallet();
-    $('#refresh-button').click(refresh);
 };
 
 $(document).ready(init);

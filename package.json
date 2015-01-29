@@ -6,6 +6,6 @@
       "url": "git://github.com/chromaway/cc-faucet.git"
   },
   "dependencies": {
-    "cc-wallet-engine": "git://github.com/chromaway/cc-wallet-engine.git#v0.0.5"
+    "cc-wallet-engine": "git://github.com/chromaway/cc-wallet-engine.git#v0.3.0"
   }
 }
