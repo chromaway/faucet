@@ -29,16 +29,6 @@ a, a:visited {
     color: black;
 }
 
-.asset > div {
-    display: inline-block;
-    padding: 10px;
-    width: 150px;
-}
-
-.asset .address {
-    width: 500px;
-}
-
 .unconfirmed::before {
     content: '(';
 }
@@ -50,4 +40,22 @@ a, a:visited {
     display: none;
 }
 
-    
+.asset > div {
+    padding: 10px;
+}
+
+.asset .address {
+    font-size: 14px;
+}
+
+@media screen and (min-width: 600px) {
+  .asset > div {
+      display: inline-block;
+      width: 150px;
+  }
+  
+  .asset .address {
+      width: 500px;
+      font-size: inherit;
+  }
+}
