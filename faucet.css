@@ -36,6 +36,14 @@ a, a:visited {
     content: ')';
 }
 
+.asset input {
+  margin-top: 10px;
+}
+
+.name {
+    font-size: 1.5rem;
+}
+
 #asset-template {
     display: none;
 }
@@ -46,6 +54,14 @@ a, a:visited {
 
 .asset .address {
     font-size: 14px;
+}
+
+.asset .return-section {
+    display: none;
+}
+
+a.open-return {
+    color: inherit;
 }
 
 @media screen and (min-width: 600px) {

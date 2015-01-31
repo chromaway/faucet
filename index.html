@@ -12,7 +12,7 @@
 <p>Also the source-code shows how to use the open-source <a href="http://www.github.com/chromaway/">libraries</a> from <a href="http://www.chromaway.com/">ChromaWay</a></p>
 <h3>House rules:</h3>
 <p>Don't take too much so you empty the wallet.</p>
-<p> When you are finished with testing, please send coins back to the given addresses.
+<p> When you are finished with testing, please return coins back to the given addresses.
 </p>
 
 <div id="asset-template">
@@ -20,19 +20,25 @@
     <div class="name"></div>
     <div class="available" title="available"></div>
     <div class="unconfirmed" title="unconfirmed"></div>
-    <div class="address" title="address"></div>
     <form class="send-form">
       <input type="text" placeholder="Address" class="send-address"></input>
       <input type="number" placeholder="Amount" class="send-amount" min=0></input>
       <input type="button" value="Send" class="send-asset-button"></input>
     </form>
+    <a href="#" class="open-return">Return</a>
+    <div class="return-section">
+      <div class="address" title="address"></div>
+      <div class="qr-area"></div>
+    </div>
   </div>
 </div>
 
-<div id="assets">Wait...Initializing...</div>
+<div id="assets"></div>
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/bower_components/qr-js/qr.js"></script>
+
 <script src="/eureca.js"></script>
 <script src="/faucet.js"></script>
 

@@ -128,6 +128,8 @@ eurecaServer.exports.send = function (oid, address, amount) {
   }
 };
 
+app.use('/bower_components',
+        express.static(__dirname + '/bower_components'))
 
 app.get('/', function (req, res, next) {
   res.sendFile(__dirname + '/index.html')

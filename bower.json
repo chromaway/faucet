@@ -1,0 +1,23 @@
+{
+  "name": "faucet",
+  "main": "faucet.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chromaway/faucet",
+  "authors": [
+    "henrik.hjelte@chromaway.com"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "qr-js": "~1.1.3"
+  }
+}
