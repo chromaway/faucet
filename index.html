@@ -8,12 +8,18 @@
 <a href="http://www.chromawallet.com/"><img src="logo.png"></img></a>
 <h1>Colored-coins faucet</h1>
 
+<div id="place-for-video">
+</div>
 <p>You can use this page to get some colored-coins for testing. It truns on the bitcoin <a href="https://en.bitcoin.it/wiki/Testnet">testnet</a>, so these assets have no real value.</p>
 <p>Also the source-code shows how to use the open-source <a href="http://www.github.com/chromaway/">libraries</a> from <a href="http://www.chromaway.com/">ChromaWay</a></p>
 <h3>House rules:</h3>
 <p>Don't take too much so you empty the wallet.</p>
 <p> When you are finished with testing, please return coins back to the given addresses.
 </p>
+
+<h4>
+<p>You can use a modern browser to scan a QR-code from your phone. In your app, click receive, then scan it below. This scanner is not as good as the one in your phone, but it works on sunny days.</p>
+<button id="scan-button" type="button">Scan</button>
 
 <div id="asset-template">
   <div class="asset">
@@ -37,7 +43,28 @@
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="/bower_components/qr-js/qr.js"></script>
+
+<!-- qr code scanner -->
+<script type="text/javascript" src="../bower_components/jsqrcode/src/grid.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/version.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/detector.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/formatinf.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/errorlevel.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/bitmat.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/datablock.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/bmparser.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/datamask.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/rsdecoder.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/gf256poly.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/gf256.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/decoder.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/qrcode.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/findpat.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/alignpat.js"></script>
+<script type="text/javascript" src="../bower_components/jsqrcode/src/databr.js"></script>
+<!-- qr code scanner -->
+
+<script src="../bower_components/qr-js/qr.js"></script>
 
 <script src="/eureca.js"></script>
 <script src="/faucet.js"></script>

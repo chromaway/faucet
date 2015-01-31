@@ -51,7 +51,11 @@ var renderAssetModelsToClient = function (client) {
     return data;
   });
 
-  client.renderAssets(serialized);
+  try {
+    client.renderAssets(serialized);
+  } catch (e) {
+    console.error(e);
+  }
   
   //Send to client
 }

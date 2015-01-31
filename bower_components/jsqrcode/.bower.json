@@ -1,0 +1,14 @@
+{
+  "name": "jsqrcode",
+  "homepage": "https://github.com/LazarSoft/jsqrcode",
+  "_release": "67e77fe14b",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "67e77fe14bb96463ef7cc1a44facbec250f4240b"
+  },
+  "_source": "git://github.com/LazarSoft/jsqrcode.git",
+  "_target": "*",
+  "_originalSource": "jsqrcode",
+  "_direct": true
+}

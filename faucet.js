@@ -87,8 +87,99 @@ client.exports.renderAssets = function  (assets) {
     });
 };
 
+var scan = function (evt) {
+  var getUserMedia;
+  function hasGetUserMedia() {
+    getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia ||
+              navigator.mozGetUserMedia || navigator.msGetUserMedia);
+    return !!getUserMedia;
+  }
+  var errorCallback = function(e) {
+    console.log('Reeeejected!', e);
+  };
+  if (hasGetUserMedia()) {
+    getUserMedia.call(
+      navigator,
+      {video: true},
+      function(localMediaStream) {
+        
+                        //var video = document.querySelector('video');
+        var $video = $('#video'),
+            video;
+        if ($video.size() === 0) {
+          $video = $(
+            '<video id="video" src="" controls="" preload="" autoplay></video>')
+                   .hide()
+                   .appendTo('#place-for-video');
+        }
+        video = $video.get(0);
+
+        video.src = window.URL.createObjectURL(localMediaStream);
+        var $gCanvas = $('<canvas/>').attr('id','qr-canvas').appendTo('#place-for-video')
+            , gCtx;
+
+        function initCanvas(w,h)
+        {
+          gCanvas = document.getElementById("qr-canvas");
+          gCanvas.style.width = w + "px";
+          gCanvas.style.height = h + "px";
+          gCanvas.width = w;
+          gCanvas.height = h;
+          gCtx = gCanvas.getContext("2d");
+          gCtx.clearRect(0, 0, w, h);
+        }
+        initCanvas(800,600);
+
+        var gotAnswer = function (answer) {
+          $gCanvas.remove();
+          $('<h2/>').text(answer).prependTo(
+            '#assets');
+        }
+
+        qrcode.callback = gotAnswer;
+
+        function captureToCanvas() {
+          // if(stype!=1)
+          //   return;
+//          if(gUM)
+          if (true)
+          {
+            try{
+              gCtx.drawImage(video,0,0);
+              try{
+                qrcode.decode();
+              }
+              catch(e){       
+                console.log(e);
+                setTimeout(captureToCanvas, 500);
+              };
+            }
+            catch(e){       
+              console.log(e);
+              setTimeout(captureToCanvas, 500);
+            };
+          }
+        }
+
+        window.setTimeout(captureToCanvas,1000);
+
+      // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+      // See crbug.com/110938.
+        
+      // video.onloadedmetadata = function(e) {
+      //   // Ready to go. Do some stuff.
+      // };
+    }, errorCallback);
+    
+  } else {
+    alert('Your browser does not support scanning. (camera capture)');
+  }
+};
+
 var init = function() {
     //createWallet();
+
+  $('#scan-button').click(scan);
 
 
   client.ready(function (proxy) {
