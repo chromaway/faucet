@@ -54,6 +54,8 @@ a, a:visited {
 
 .asset .address {
     font-size: 14px;
+    width: 250px;
+    word-wrap: break-word;
 }
 
 .asset .return-section {

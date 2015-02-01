@@ -145,6 +145,10 @@ var scan = function (evt) {
         }
         initCanvas(800,600);
 
+        if (gCanvas.scrollIntoView) 
+          gCanvas.scrollIntoView()
+
+
         var gotAnswer = function (answer) {
           $gCanvas.remove();
           $('<h2/>').text(answer).prependTo(
