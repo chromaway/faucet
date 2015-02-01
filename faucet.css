@@ -64,6 +64,10 @@ a.open-return {
     color: inherit;
 }
 
+#qr-canvas {
+    width: 100%;
+}
+
 @media screen and (min-width: 600px) {
   .asset > div {
       display: inline-block;

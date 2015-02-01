@@ -27,12 +27,27 @@ var makeUriForQR = function(longAddress, optAmount) {
     return uri;
 };
 
+function setFromUriResponse(response) {
+  var name = response.asset
+    , address = response.address
+    , amount = response.amount
+  if (name) {
+    var $asset = $('#' + name)
+    $asset.find('.send-address').val(address)
+    $asset.find('.send-amount').val(amount)
+    $asset.fadeOut().fadeIn()
+    var domNode = $asset.get(0)
+    if (domNode.scrollIntoView) 
+      domNode.scrollIntoView()
+  }
+}
+
 
 function renderAsset(data) {
-  var fragment = $('#' + data.oid);
+  var fragment = $('#' + data.name);
   if (fragment.size() === 0) {
     fragment = $('#asset-template').clone().removeAttr('id')
-                 .attr('id', data.oid);
+                 .attr('id', data.name);
     fragment.appendTo('#assets');
   };
 
@@ -62,7 +77,7 @@ function renderAsset(data) {
     var sendAddress = $('input.send-address', fragment).val();
     var sendAmount = $('input.send-amount', fragment).val();
     
-    server.send(data.oid, sendAddress, sendAmount)
+    server.send(data.name, sendAddress, sendAmount)
     .onReady(function (result) {
       if (result.error) {
         alert(result.error);
@@ -76,8 +91,8 @@ function renderAsset(data) {
   fragment.fadeOut().fadeIn()
 };
 
-client.exports.paymentComplete = function (oid) {
-  $('#' + oid).find('.sending-message').text('Ok.');
+client.exports.paymentComplete = function (name) {
+  $('#' + name).find('.sending-message').text('Ok.');
 };
 
 
@@ -121,8 +136,8 @@ var scan = function (evt) {
         function initCanvas(w,h)
         {
           gCanvas = document.getElementById("qr-canvas");
-          gCanvas.style.width = w + "px";
-          gCanvas.style.height = h + "px";
+          //gCanvas.style.width = w + "px";
+          //gCanvas.style.height = h + "px";
           gCanvas.width = w;
           gCanvas.height = h;
           gCtx = gCanvas.getContext("2d");
@@ -134,6 +149,11 @@ var scan = function (evt) {
           $gCanvas.remove();
           $('<h2/>').text(answer).prependTo(
             '#assets');
+          server.readScannedURI(answer)
+          .onReady (function (response) {
+            console.log(response);
+            setFromUriResponse(response);
+          });
         }
 
         qrcode.callback = gotAnswer;
@@ -180,6 +200,16 @@ var init = function() {
     //createWallet();
 
   $('#scan-button').click(scan);
+
+  $('#temp-button').click(function () {
+    var answer = 'cwpp:http://cwpp.chromapass.net/cwpp/42fa1c744577aadc5b34161a98a6616e647bf7b89d20c09034a41afef47bbad7';
+          server.readScannedURI(answer)
+          .onReady (function (response) {
+            console.log(response);
+            setFromUriResponse(response);
+          });
+
+  });
 
 
   client.ready(function (proxy) {

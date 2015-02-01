@@ -40,14 +40,15 @@ var getObj = function (oid) {
 
 var renderAssetModelsToClient = function (client) {
   var serialized = assetModels.map(function (am) {
-    var oid = saveObj(am);
-    var data = {
-      name : am.getMoniker(),
-      available : am.getAvailableBalance(),
-      unconfirmed : am.getUnconfirmedBalance(),
-      address : am.getAddress(),
-      oid: oid
-    };
+    var name = am.getMoniker()
+      , oid = saveObj(am, name)
+      , data = {
+        name : name,
+        available : am.getAvailableBalance(),
+        unconfirmed : am.getUnconfirmedBalance(),
+        address : am.getAddress(),
+        oid: name
+      };
     return data;
   });
 
@@ -101,6 +102,36 @@ createWallet();
 
 eurecaServer.exports.hello = function () {
   console.log('Hello from client');
+}
+
+eurecaServer.exports.readScannedURI = function (uri) {
+  var context = this,
+      response = {}
+  context.async = true
+  try {
+    wallet.makePaymentFromURI(uri, function (err, payment) {
+      if (err)
+        throw err
+      var recipients = payment.getRecipients();
+      var address = '';
+      var amount = '';
+      var asset = payment.getAssetModel().getMoniker()
+      if (recipients.length == 1) {
+          address = recipients[0].address;
+          amount = recipients[0].amount;
+      }
+      response.asset = asset;
+
+      response.address = address;
+      response.amount = amount;
+
+	  context.return(response);
+    });
+  } catch (x) {
+    response.error =  "An error occurred. Bad QR-code?";
+    console.log(x);
+    context.return(response);    
+  }
 }
 
 eurecaServer.exports.send = function (oid, address, amount) {
