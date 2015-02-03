@@ -28,6 +28,7 @@ var makeUriForQR = function(longAddress, optAmount) {
 };
 
 function setFromUriResponse(response) {
+  //Preserve this code, we can use it when reading urls from query string etc.
   var name = response.asset
     , address = response.address
     , amount = response.amount
@@ -97,6 +98,7 @@ client.exports.paymentComplete = function (name) {
 
 
 client.exports.renderAssets = function  (assets) {
+    $('#info').text("");
     $.each(assets, function (idx, am) {
         renderAsset(am);
     });
@@ -113,6 +115,7 @@ var scan = function (evt) {
     console.log('Reeeejected!', e);
   };
   if (hasGetUserMedia()) {
+    $('#info').text("Allow the browser to access the camera.");
     getUserMedia.call(
       navigator,
       {video: true},
@@ -151,12 +154,13 @@ var scan = function (evt) {
 
         var gotAnswer = function (answer) {
           $gCanvas.remove();
-          $('<h2/>').text(answer).prependTo(
-            '#assets');
-          server.readScannedURI(answer)
-          .onReady (function (response) {
-            console.log(response);
-            setFromUriResponse(response);
+          $('#info').text("Sending...");
+          server.scanAndSend(answer)
+          .onReady (function (err, response) {
+            if (err)
+              alert(err);
+            else
+              $('#info').text("Sent Ok.");
           });
         }
 
@@ -204,17 +208,6 @@ var init = function() {
     //createWallet();
 
   $('#scan-button').click(scan);
-
-  $('#temp-button').click(function () {
-    var answer = 'cwpp:http://cwpp.chromapass.net/cwpp/42fa1c744577aadc5b34161a98a6616e647bf7b89d20c09034a41afef47bbad7';
-          server.readScannedURI(answer)
-          .onReady (function (response) {
-            console.log(response);
-            setFromUriResponse(response);
-          });
-
-  });
-
 
   client.ready(function (proxy) {
     proxy.hello();

@@ -104,7 +104,7 @@ eurecaServer.exports.hello = function () {
   console.log('Hello from client');
 }
 
-eurecaServer.exports.readScannedURI = function (uri) {
+eurecaServer.exports.scanAndSend = function (uri) {
   var context = this,
       response = {}
   context.async = true
@@ -112,25 +112,37 @@ eurecaServer.exports.readScannedURI = function (uri) {
     wallet.makePaymentFromURI(uri, function (err, payment) {
       if (err)
         throw err
-      var recipients = payment.getRecipients();
-      var address = '';
-      var amount = '';
-      var asset = payment.getAssetModel().getMoniker()
-      if (recipients.length == 1) {
-          address = recipients[0].address;
-          amount = recipients[0].amount;
+      var onPaymentComplete = function (err, txid) {
+        if (err)
+          throw err
+        response.ok = "Sent ok"
+        context.return(null, response);
       }
-      response.asset = asset;
+      try {
+        payment.send(onPaymentComplete);
+      }
+      catch (e){
+        context.return(e.toString(), response);
+      }
+      
+      // var recipients = payment.getRecipients();
+      // var address = '';
+      // var amount = '';
+      // var asset = payment.getAssetModel().getMoniker()
+      // if (recipients.length == 1) {
+      //     address = recipients[0].address;
+      //     amount = recipients[0].amount;
+      // }
+      // response.asset = asset;
 
-      response.address = address;
-      response.amount = amount;
+      // response.address = address;
+      // response.amount = amount      
 
-	  context.return(response);
+	  // context.return(response);
     });
-  } catch (x) {
-    response.error =  "An error occurred. Bad QR-code?";
-    console.log(x);
-    context.return(response);    
+  } catch (e) {
+    console.log(e);
+    context.return(e.toString(), response);
   }
 }
 
