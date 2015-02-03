@@ -124,21 +124,6 @@ eurecaServer.exports.scanAndSend = function (uri) {
       catch (e){
         context.return(e.toString(), response);
       }
-      
-      // var recipients = payment.getRecipients();
-      // var address = '';
-      // var amount = '';
-      // var asset = payment.getAssetModel().getMoniker()
-      // if (recipients.length == 1) {
-      //     address = recipients[0].address;
-      //     amount = recipients[0].amount;
-      // }
-      // response.asset = asset;
-
-      // response.address = address;
-      // response.amount = amount      
-
-	  // context.return(response);
     });
   } catch (e) {
     console.log(e);
