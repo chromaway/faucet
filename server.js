@@ -1,4 +1,5 @@
-var express = require('express')
+var _ = require('lodash')
+  , express = require('express')
   , app = express(app)
   , server = require('http').createServer(app)
   , ccWalletEngine = require('cc-wallet-engine')
@@ -75,8 +76,8 @@ eurecaServer.onConnect(function (connection) {
 function walletWasUpdated() {
   console.log("Wallet was updated!");
   assetModels = wallet.getAssetModels();
-  console.log(assetModels);
-  console.log(clientIds);
+  console.log('Assets: \n' + _.pluck(assetModels, 'props'));
+  console.log('Clients:', clientIds);
   clientIds.forEach(function (id) {
     console.log("Transmitting to client:" + id);
     var client = eurecaServer.getClient(id);

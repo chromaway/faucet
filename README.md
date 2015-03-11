@@ -14,7 +14,7 @@ Install
 
    npm install
    
-   node  --harmony-proxies server.js
+   node --harmony-proxies server.js
    
 Open browser at http://localhost:8000
 
